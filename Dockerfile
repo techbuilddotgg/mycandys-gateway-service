@@ -2,7 +2,7 @@
 FROM openjdk:17-alpine
 
 # Set environment variables for the Spring Boot app
-ENV PORT='port'
+ENV PORT='8080'
 ENV AUTH_SERVICE_URI='auth_service_uri'
 
 # Create app directory
