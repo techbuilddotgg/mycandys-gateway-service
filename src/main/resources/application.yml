@@ -1,0 +1,29 @@
+server:
+  port: ${PORT}
+  servlet:
+    context-path: "/"
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URI}
+          predicates:
+            - Path=/auth/**, /users/**
+
+
+springdoc:
+  enable-native-support: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /v3/api-docs
+        name: API Gateway Service
+      - url: ${AUTH_SERVICE_URI}/v3/api-docs
+        name: Auth Service
+
