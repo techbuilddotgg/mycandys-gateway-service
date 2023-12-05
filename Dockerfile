@@ -22,4 +22,4 @@ RUN apk add --no-cache maven && mvn -f /app/pom.xml clean package
 EXPOSE ${PORT}
 
 # Command to run the Spring Boot application when the container starts
-CMD ["java", "-jar", "/app/target/sua-auth-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/app/target/mycandys-gateway-service-0.0.1-SNAPSHOT.jar"]
