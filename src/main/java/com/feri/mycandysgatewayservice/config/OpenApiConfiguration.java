@@ -19,11 +19,6 @@ import org.springframework.http.HttpMethod;
                 title = "MyCandys Gateway API",
                 version = "1.0",
                 termsOfService = "Terms of service"
-        ),
-        servers = {
-                @Server(
-                        url = "http://localhost:8081"
-                ),
-        }
+        )
 )
 public class OpenApiConfiguration { }

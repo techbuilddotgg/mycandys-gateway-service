@@ -2,15 +2,33 @@ server:
   port: ${PORT}
   servlet:
     context-path: "/"
+  forward-headers-strategy: framework
+
 
 spring:
   cloud:
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+        - AddResponseHeader=Access-Control-Allow-Origin, *
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
       routes:
         - id: auth-service
           uri: ${AUTH_SERVICE_URI}
           predicates:
             - Path=/auth/**, /users/**
+        - id: auth-service-swagger
+          uri: ${AUTH_SERVICE_URI}
+          predicates:
+            - Path=/auth-service/v3/api-docs/**
+          filters:
+            - StripPrefix=1
 
 
 springdoc:
@@ -24,6 +42,5 @@ springdoc:
     urls:
       - url: /v3/api-docs
         name: API Gateway Service
-      - url: ${AUTH_SERVICE_URI}/v3/api-docs
+      - url: /auth-service/v3/api-docs
         name: Auth Service
-
