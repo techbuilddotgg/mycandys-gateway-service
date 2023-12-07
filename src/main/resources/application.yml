@@ -1,9 +1,8 @@
 server:
   port: ${PORT}
   servlet:
-    context-path: "/"
+    context-path: '/'
   forward-headers-strategy: framework
-
 
 spring:
   cloud:
@@ -14,7 +13,7 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "*"
+            allowedOrigins: '*'
             allowedMethods:
               - GET
               - POST
@@ -77,7 +76,16 @@ spring:
           filters:
             - StripPrefix=1
 
-
+        - id: orders-service
+          uri: ${ORDERS_SERVICE_URI}
+          predicates:
+            - Path=/orders/**
+        - id: orders-service-swagger
+          uri: ${ORDERS_SERVICE_URI}
+          predicates:
+            - Path=/orders-service/swagger/doc.json
+          filters:
+            - StripPrefix=1
 
 springdoc:
   enable-native-support: true
@@ -100,3 +108,5 @@ springdoc:
         name: Notification Service
       - url: /discounts-service/swagger-json
         name: Discounts Service
+      - url: /orders-service/swagger/doc.json
+        name: Orders Service
