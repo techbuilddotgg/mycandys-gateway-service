@@ -18,6 +18,9 @@ spring:
             allowedMethods:
               - GET
               - POST
+              - PUT
+              - PATCH
+              - DELETE
       routes:
         - id: auth-service
           uri: ${AUTH_SERVICE_URI}
@@ -29,6 +32,28 @@ spring:
             - Path=/auth-service/v3/api-docs/**
           filters:
             - StripPrefix=1
+
+        - id: products-service
+          uri: ${PRODUCTS_SERVICE_URI}
+          predicates:
+            - Path=/products/**
+        - id: products-service-swagger
+          uri: ${PRODUCTS_SERVICE_URI}
+          predicates:
+            - Path=/auth-service/v3/api-docs
+          filters:
+            - RewritePath=/swagger.json
+
+        - id: carts-service
+          uri: ${CARTS_SERVICE_URI}
+          predicates:
+            - Path=/carts/**
+        - id: carts-service-swagger
+          uri: ${CARTS_SERVICE_URI}
+          predicates:
+            - Path=/auth-service/v3/api-docs
+          filters:
+            - RewritePath=/swagger.json
 
 
 springdoc:
@@ -44,3 +69,7 @@ springdoc:
         name: API Gateway Service
       - url: /auth-service/v3/api-docs
         name: Auth Service
+      - url: /products-service/v3/api-docs
+        name: Products Service
+      - url: /carts-service/v3/api-docs
+        name: Carts Service
