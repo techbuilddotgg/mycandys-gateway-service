@@ -40,9 +40,9 @@ spring:
         - id: products-service-swagger
           uri: ${PRODUCTS_SERVICE_URI}
           predicates:
-            - Path=/auth-service/v3/api-docs
+            - Path=/products-service/v3/api-docs
           filters:
-            - RewritePath=/swagger.json
+            - StripPrefix=1
 
         - id: carts-service
           uri: ${CARTS_SERVICE_URI}
@@ -51,9 +51,32 @@ spring:
         - id: carts-service-swagger
           uri: ${CARTS_SERVICE_URI}
           predicates:
-            - Path=/auth-service/v3/api-docs
+            - Path=/carts-service/v3/api-docs
           filters:
-            - RewritePath=/swagger.json
+            - StripPrefix=1
+
+        - id: notifications-service
+          uri: ${NOTIFICATIONS_SERVICE_URI}
+          predicates:
+            - Path=/api/v1/notifications/**, /api/v1/emails/**
+        - id: notifications-service-swagger
+          uri: ${NOTIFICATIONS_SERVICE_URI}
+          predicates:
+            - Path=/notifications-service/swagger-json
+          filters:
+            - StripPrefix=1
+
+        - id: discounts-service
+          uri: ${DISCOUNTS_SERVICE_URI}
+          predicates:
+            - Path=/api/v1/discounts/**, /api/v1/offers/**
+        - id: discounts-service-swagger
+          uri: ${DISCOUNTS_SERVICE_URI}
+          predicates:
+            - Path=/discounts-service/swagger-json
+          filters:
+            - StripPrefix=1
+
 
 
 springdoc:
@@ -73,3 +96,7 @@ springdoc:
         name: Products Service
       - url: /carts-service/v3/api-docs
         name: Carts Service
+      - url: /notifications-service/swagger-json
+        name: Notification Service
+      - url: /discounts-service/swagger-json
+        name: Discounts Service
