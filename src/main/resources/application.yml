@@ -20,6 +20,7 @@ spring:
               - PUT
               - PATCH
               - DELETE
+              - OPTIONS
       routes:
         - id: auth-service
           uri: ${AUTH_SERVICE_URI}
