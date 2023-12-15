@@ -88,6 +88,17 @@ spring:
           filters:
             - StripPrefix=1
 
+        - id: logging-service
+          uri: ${LOGGING_SERVICE_URI}
+          predicates:
+            - Path=/logs/**
+        - id: logging-service-swagger
+          uri: ${LOGGING_SERVICE_URI}
+          predicates:
+            - Path=/logging-service/openapi.json
+          filters:
+            - StripPrefix=1
+
 springdoc:
   enable-native-support: true
   api-docs:
@@ -111,3 +122,5 @@ springdoc:
         name: Discounts Service
       - url: /orders-service/swagger/doc.json
         name: Orders Service
+      - url: /logging-service/openapi.json
+        name: Logging Service
