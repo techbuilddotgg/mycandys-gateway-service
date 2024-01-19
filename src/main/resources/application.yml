@@ -5,6 +5,11 @@ server:
   forward-headers-strategy: framework
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
+  task:
+    scheduling:
+      enabled: true
   cloud:
     gateway:
       default-filters:
