@@ -11,11 +11,15 @@ RUN mkdir /app
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the JAR file into the container
-COPY ./target/mycandys-gateway-service-0.0.1-SNAPSHOT.jar /app/app.jar
+# Copy the Maven configuration files
+COPY pom.xml /app/pom.xml
+COPY src /app/src
+
+# Build the Spring Boot application using Maven
+RUN apk add --no-cache maven && mvn -f /app/pom.xml clean package
 
 # Expose the port the app runs on
 EXPOSE ${PORT}
 
 # Command to run the Spring Boot application when the container starts
-CMD ["java", "-jar", "/app/app.jar"]
+CMD ["java", "-jar", "/app/target/mycandys-gateway-service-0.0.1-SNAPSHOT.jar"]
